@@ -5,36 +5,26 @@ const categoryMenu = document.getElementById("categoryMenu");
 const generateButton = document.getElementById("generateButton");
 const result = document.getElementById("result");
 const excuseText = document.getElementById("excuseText");
-const copyButton = document.getElementById("copyButton");
-const copied = document.getElementById("copied");
 const anotherButton = document.getElementById("anotherButton");
 
 const categories = Object.keys(excuses);
 let currentCategory = categories[0];
 let lastIndex = -1;
 
-
 function renderMenu() {
     categoryMenu.innerHTML = "";
-
     categories.forEach(function(category) {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "option" + (category === currentCategory ? " active" : "");
         button.textContent = category;
-
         button.addEventListener("click", function() {
             currentCategory = category;
-                        categoryMenu.classList.add("hidden");
-
             result.classList.add("hidden");
             generateButton.classList.remove("hidden");
-            copied.classList.add("hidden");
             lastIndex = -1;
-
             renderMenu();
         });
-
         categoryMenu.appendChild(button);
     });
 }
@@ -42,46 +32,43 @@ function renderMenu() {
 function generateAnswer() {
     const list = excuses[currentCategory];
     let index = Math.floor(Math.random() * list.length);
-
     if (list.length > 1) {
-        while (index === lastIndex) {
-            index = Math.floor(Math.random() * list.length);
-        }
+        while (index === lastIndex) index = Math.floor(Math.random() * list.length);
     }
-
     lastIndex = index;
     excuseText.textContent = list[index];
-
     generateButton.classList.add("hidden");
     result.classList.remove("hidden");
-    copied.classList.add("hidden");
 }
 
 generateButton.addEventListener("click", generateAnswer);
 anotherButton.addEventListener("click", generateAnswer);
 
-copyButton.addEventListener("click", async function() {
-    const text = excuseText.textContent;
-
+excuseText.addEventListener("click", async function() {
+    const text = excuseText.textContent.trim();
+    if (!text) return;
     try {
         await navigator.clipboard.writeText(text);
     } catch (error) {
         const textarea = document.createElement("textarea");
         textarea.value = text;
         textarea.style.position = "fixed";
-        textarea.style.left = "-9999px";
+        textarea.style.opacity = "0";
         document.body.appendChild(textarea);
         textarea.focus();
         textarea.select();
         document.execCommand("copy");
-        document.body.removeChild(textarea);
+        textarea.remove();
     }
-
-    copied.classList.remove("hidden");
-
-    setTimeout(function() {
-        copied.classList.add("hidden");
-    }, 1500);
+    excuseText.classList.remove("copied-state");
+    void excuseText.offsetWidth;
+    excuseText.classList.add("copied-state");
+    const hint = document.querySelector(".copy-hint");
+    if (hint) {
+        const old = hint.textContent;
+        hint.textContent = "✓ Скопировано";
+        setTimeout(function(){ hint.textContent = old; }, 1200);
+    }
 });
 
 renderMenu();
