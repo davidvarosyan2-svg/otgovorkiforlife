@@ -8,6 +8,7 @@ const generateButton = document.getElementById("generateButton");
 const result = document.getElementById("result");
 const excuseText = document.getElementById("excuseText");
 const copyButton = document.getElementById("copyButton");
+const anotherButton = document.getElementById("anotherButton");
 const copied = document.getElementById("copied");
 
 const categories = Object.keys(excuses);
@@ -46,7 +47,7 @@ categoryButton.addEventListener("click", function() {
     categoryMenu.classList.toggle("hidden");
 });
 
-generateButton.addEventListener("click", function() {
+function generateExcuse() {
     const list = excuses[currentCategory];
     let index = Math.floor(Math.random() * list.length);
 
@@ -58,11 +59,14 @@ generateButton.addEventListener("click", function() {
 
     lastIndex = index;
     excuseText.textContent = list[index];
-
     generateButton.classList.add("hidden");
     result.classList.remove("hidden");
     copied.classList.add("hidden");
-});
+}
+
+generateButton.addEventListener("click", generateExcuse);
+anotherButton.addEventListener("click", generateExcuse);
+excuseText.addEventListener("click", function() { copyButton.click(); });
 
 copyButton.addEventListener("click", async function() {
     const text = excuseText.textContent;

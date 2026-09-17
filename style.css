@@ -19,3 +19,5 @@ button{font-family:inherit;cursor:pointer}
 .copied{margin-top:8px;color:#86efac;font-weight:bold}
 footer{color:#5f5f6b;font-size:13px;margin-top:18px}
 @media(max-width:520px){section{padding:10px}.category-button{font-size:14px}.excuse{font-size:17px;padding:22px;min-height:170px}}
+
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.copy-button,.another-button{width:100%;min-height:56px;border:0;border-radius:16px;color:#fff;font-weight:800;font-size:14px;padding:10px}.copy-button{background:#303038}.copy-button:hover{background:#3a3a45}.another-button{background:#8b5cf6}.another-button:hover{background:#7c3aed}.excuse{cursor:pointer}.excuse:hover{border-color:#555563}@media(max-width:560px){.actions{grid-template-columns:1fr}}
