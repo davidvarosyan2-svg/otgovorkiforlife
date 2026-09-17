@@ -1,0 +1,21 @@
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:#09090d;color:#f5f5f7;font-family:Arial,sans-serif;display:grid;place-items:center;padding:20px}
+main{width:min(680px,100%);text-align:center}
+.badge{display:inline-block;padding:7px 12px;border:1px solid #383842;border-radius:99px;color:#b9a4ff;background:#15151c;font-size:12px;font-weight:bold;letter-spacing:1px}
+h1{font-size:clamp(45px,9vw,75px);margin:15px 0 8px;letter-spacing:-4px}
+p{color:#92929f;margin:0 0 28px}
+section{padding:14px;background:#15151b;border:1px solid #292932;border-radius:24px;box-shadow:0 25px 70px #0008}
+button{font-family:inherit;cursor:pointer}
+.category-button{width:100%;min-height:64px;border:0;border-radius:16px;background:#202029;color:#fff;padding:0 20px;display:flex;justify-content:space-between;align-items:center;text-align:left;font-weight:800;font-size:16px}
+.arrow{font-size:25px;color:#9999a5}
+.menu{margin-top:8px;padding:8px;background:#101015;border:1px solid #292932;border-radius:16px;display:grid;gap:5px}
+.hidden{display:none!important}
+.option{width:100%;border:0;background:transparent;color:#ddd;padding:13px;border-radius:11px;text-align:left;font:inherit}
+.option:hover,.option.active{background:#7c3aed33;color:#fff}
+.generate-button{width:100%;min-height:64px;margin-top:12px;border:0;border-radius:16px;background:#8b5cf6;color:#fff;font-weight:900;font-size:16px}
+.generate-button:hover{background:#7c3aed}
+.excuse{min-height:150px;margin-top:12px;padding:28px;border-radius:18px;background:#101015;border:1px solid #292932;display:grid;place-items:center;font-size:20px;line-height:1.5;font-weight:bold}
+.copy-button{width:100%;min-height:52px;margin-top:10px;border:0;border-radius:16px;background:#272731;color:#fff;font-weight:bold}
+.copied{margin-top:8px;color:#86efac;font-weight:bold}
+footer{color:#5f5f6b;font-size:13px;margin-top:18px}
+@media(max-width:520px){section{padding:10px}.category-button{font-size:14px}.excuse{font-size:17px;padding:22px;min-height:170px}}

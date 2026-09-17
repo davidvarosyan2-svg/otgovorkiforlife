@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Отговорки</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <div class="badge">100 ОТГОВОРОК</div>
+  <h1>ОТГОВОРКИ</h1>
+  <p>Выбери ситуацию и получи готовый ответ.</p>
+
+  <section>
+    <button id="categoryButton" class="category-button" type="button">
+      <span id="categoryName"></span><span class="arrow">↓</span>
+    </button>
+
+    <div id="categoryMenu" class="menu hidden"></div>
+
+    <button id="generateButton" class="generate-button" type="button">
+      🎲 СГЕНЕРИРОВАТЬ ОТВЕТ
+    </button>
+
+    <div id="result" class="result hidden">
+      <div id="excuseText" class="excuse"></div>
+      <button id="copyButton" class="copy-button" type="button">📋 Скопировать</button>
+      <div id="copied" class="copied hidden">✓ Скопировано</div>
+    </div>
+  </section>
+
+  <footer>Сгенерируй. Скопируй. Отправь. 😎</footer>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
