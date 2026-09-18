@@ -11,7 +11,7 @@ const modifiers = {
   dramatic:{prefix:'В связи с обстоятельствами, ',suffix:''}, sad:{prefix:'Мне правда неловко это говорить, но ',suffix:''}
 };
 
-const categoryMenu=document.getElementById('categoryMenu'), generateButton=document.getElementById('generateButton'), result=document.getElementById('result'), excuseText=document.getElementById('excuseText'), anotherButton=document.getElementById('anotherButton');
+const categoryMenu=document.getElementById('categoryMenu'), categoryScroller=document.getElementById('categoryScroller'), categoryPrev=document.getElementById('categoryPrev'), categoryNext=document.getElementById('categoryNext'), categoryThumb=document.getElementById('categoryThumb'), generateButton=document.getElementById('generateButton'), result=document.getElementById('result'), excuseText=document.getElementById('excuseText'), anotherButton=document.getElementById('anotherButton');
 const categories=Object.keys(excuses); let currentCategory=categories[0], currentStyle='realistic', lastIndex=-1, favorites=JSON.parse(localStorage.getItem('otgovorkiFavorites')||'[]');
 const styleMenu=document.createElement('div'); styleMenu.className='style-menu'; categoryMenu.parentElement.after(styleMenu);
 const favoriteButton=document.createElement('button'); favoriteButton.className='favorite-button'; favoriteButton.type='button'; favoriteButton.innerHTML='♡';
@@ -35,3 +35,15 @@ generateButton.onclick=generateAnswer;anotherButton.onclick=generateAnswer;favor
 excuseText.onclick=async()=>{const text=excuseText.textContent.trim();if(!text||loading.classList.contains('hidden')===false)return;try{await navigator.clipboard.writeText(text);}catch(e){const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();}excuseText.classList.remove('copied-state');void excuseText.offsetWidth;excuseText.classList.add('copied-state');const hint=document.querySelector('.copy-hint');hint.textContent='✓ Скопировано';setTimeout(()=>hint.textContent='Нажми на текст, чтобы скопировать',1200);};
 
 renderMenu();
+
+categoryPrev.addEventListener('click',()=>scrollCategories(-1));
+categoryNext.addEventListener('click',()=>scrollCategories(1));
+categoryScroller.addEventListener('scroll',updateCategorySlider,{passive:true});
+window.addEventListener('resize',updateCategorySlider);
+let draggingThumb=false;
+const scrollbar=document.querySelector('.category-scrollbar');
+scrollbar.addEventListener('pointerdown',(e)=>{draggingThumb=true;scrollbar.setPointerCapture(e.pointerId);moveThumb(e);});
+scrollbar.addEventListener('pointermove',(e)=>{if(draggingThumb)moveThumb(e);});
+scrollbar.addEventListener('pointerup',()=>draggingThumb=false);
+scrollbar.addEventListener('pointercancel',()=>draggingThumb=false);
+function moveThumb(e){const r=scrollbar.getBoundingClientRect();const ratio=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));const max=Math.max(0,categoryScroller.scrollWidth-categoryScroller.clientWidth);categoryScroller.scrollLeft=ratio*max;}

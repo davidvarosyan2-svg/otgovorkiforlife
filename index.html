@@ -24,9 +24,14 @@
   <p class="subtitle">Выбери ситуацию — остальное сделаем за тебя ✨</p>
 
   <section>
-    <div class="categories-wrap">
-      <div id="categoryMenu" class="menu"></div>
+    <div class="category-slider" aria-label="Выбор категории">
+      <button id="categoryPrev" class="category-arrow" type="button" aria-label="Предыдущая категория">‹</button>
+      <div class="categories-wrap" id="categoryScroller">
+        <div id="categoryMenu" class="menu"></div>
+      </div>
+      <button id="categoryNext" class="category-arrow" type="button" aria-label="Следующая категория">›</button>
     </div>
+    <div class="category-scrollbar" aria-hidden="true"><span id="categoryThumb"></span></div>
 
     <button id="generateButton" class="generate-button" type="button">
       🎲 СГЕНЕРИРОВАТЬ ОТВЕТ
