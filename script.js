@@ -42,8 +42,12 @@ categoryScroller.addEventListener('scroll',updateCategorySlider,{passive:true});
 window.addEventListener('resize',updateCategorySlider);
 let draggingThumb=false;
 const scrollbar=document.querySelector('.category-scrollbar');
-scrollbar.addEventListener('pointerdown',(e)=>{draggingThumb=true;scrollbar.setPointerCapture(e.pointerId);moveThumb(e);});
-scrollbar.addEventListener('pointermove',(e)=>{if(draggingThumb)moveThumb(e);});
-scrollbar.addEventListener('pointerup',()=>draggingThumb=false);
-scrollbar.addEventListener('pointercancel',()=>draggingThumb=false);
-function moveThumb(e){const r=scrollbar.getBoundingClientRect();const ratio=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));const max=Math.max(0,categoryScroller.scrollWidth-categoryScroller.clientWidth);categoryScroller.scrollLeft=ratio*max;}
+const categoryThumbEl=document.getElementById('categoryThumb');
+function moveThumb(e){const r=scrollbar.getBoundingClientRect();const travel=Math.max(1,r.width-categoryThumbEl.offsetWidth);const x=Math.max(0,Math.min(travel,e.clientX-r.left-categoryThumbEl.offsetWidth/2));const ratio=x/travel;const max=Math.max(0,categoryScroller.scrollWidth-categoryScroller.clientWidth);categoryScroller.scrollLeft=ratio*max;}
+categoryThumbEl.addEventListener('pointerdown',(e)=>{draggingThumb=true;categoryThumbEl.setPointerCapture(e.pointerId);moveThumb(e);});
+categoryThumbEl.addEventListener('pointermove',(e)=>{if(draggingThumb)moveThumb(e);});
+categoryThumbEl.addEventListener('pointerup',()=>draggingThumb=false);
+categoryThumbEl.addEventListener('pointercancel',()=>draggingThumb=false);
+scrollbar.addEventListener('pointerdown',(e)=>{if(e.target!==categoryThumbEl){moveThumb(e);}});
+
+
